@@ -1,0 +1,287 @@
+@import "tailwindcss";
+
+/* ── Google Fonts ──────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Caveat:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ── Theme Tokens via Tailwind v4 @theme ────────────── */
+@theme {
+  --font-sketch: 'Permanent Marker', cursive;
+  --font-handwrite: 'Caveat', cursive;
+  --font-body: 'Inter', sans-serif;
+
+  --color-ink: #1a1a1a;
+  --color-paper: #f5f0eb;
+  --color-paper-dark: #e8e0d8;
+  --color-pencil: #4a4a4a;
+  --color-light-grey: #d0d0d0;
+  --color-mid-grey: #888888;
+  --color-tape: rgba(200, 195, 185, 0.55);
+
+  --shadow-sketch: 2px 2px 0px #1a1a1a;
+  --shadow-tape: 1px 1px 4px rgba(0, 0, 0, 0.15);
+  --shadow-sticky: 3px 3px 8px rgba(0, 0, 0, 0.18);
+  --shadow-lift: 6px 6px 0px #1a1a1a;
+
+  --animate-wiggle: wiggle 0.3s ease-in-out;
+  --animate-scribble: scribble 0.6s ease-in-out forwards;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+/* ── Keyframes ──────────────────────────────────────── */
+@keyframes wiggle {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-2deg);
+  }
+
+  75% {
+    transform: rotate(2deg);
+  }
+}
+
+@keyframes scribble {
+  0% {
+    stroke-dashoffset: 200;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pencil-draw {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+/* ── Base Styles ──────────────────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ✅ FIX: Body is now a flex column that centers all children horizontally */
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* ← centers every direct child (e.g. <main>) */
+  width: 100%;
+}
+
+/* ✅ FIX: Root app wrapper — constrain and center the whole layout */
+#root,
+#__next {
+  width: 100%;
+  max-width: 1440px;
+  /* hard cap so ultra-wide screens don't stretch */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ✅ FIX: Every section fills full width of its container and centers content */
+section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ✅ FIX: Shared max-width container — use this class on every inner wrapper */
+.page-container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* ── Notebook Background ─────────────────────────────── */
+.notebook-bg {
+  background-image:
+    repeating-linear-gradient(transparent,
+      transparent 31px,
+      var(--color-light-grey) 31px,
+      var(--color-light-grey) 32px);
+  background-size: 100% 32px;
+}
+
+/* ── Sketch Border ────────────────────────────────────── */
+.sketch-border {
+  border: 2px solid var(--color-ink);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+
+.sketch-border-thin {
+  border: 1.5px solid var(--color-pencil);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+
+/* ── Tape Strip ───────────────────────────────────────── */
+.tape {
+  position: relative;
+}
+
+.tape::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 60px;
+  height: 24px;
+  background: var(--color-tape);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  border-radius: 1px;
+}
+
+/* ── Torn Edge ────────────────────────────────────────── */
+.torn-top {
+  clip-path: polygon(0% 4%, 3% 0%, 6% 3%, 9% 1%, 12% 4%, 15% 0%, 18% 3%, 21% 1%,
+      24% 4%, 27% 0%, 30% 3%, 33% 1%, 36% 4%, 39% 0%, 42% 2%, 45% 0%,
+      48% 3%, 51% 1%, 54% 4%, 57% 0%, 60% 3%, 63% 1%, 66% 4%, 69% 0%,
+      72% 2%, 75% 0%, 78% 3%, 81% 1%, 84% 4%, 87% 0%, 90% 3%, 93% 1%,
+      96% 3%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+/* ── Pencil Hover Underline ──────────────────────────── */
+.pencil-hover {
+  position: relative;
+  display: inline-block;
+}
+
+.pencil-hover::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--color-ink);
+  transition: width 0.3s ease;
+  border-radius: 1px;
+}
+
+.pencil-hover:hover::after {
+  width: 100%;
+}
+
+/* ── Doodle Tag ───────────────────────────────────────── */
+.doodle-tag {
+  display: inline-block;
+  padding: 6px 16px;
+  border: 1.5px solid var(--color-ink);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  font-family: var(--font-handwrite);
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+  cursor: default;
+}
+
+.doodle-tag:hover {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  transform: rotate(-1deg) scale(1.05);
+}
+
+/* ── Sticky Note ──────────────────────────────────────── */
+.sticky-note {
+  background: var(--color-paper-dark);
+  padding: 2rem 1.5rem;
+  box-shadow: var(--shadow-sticky);
+  transform: rotate(-1.5deg);
+  position: relative;
+}
+
+.sticky-note::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: var(--color-tape);
+}
+
+/* ── Hand-drawn underline SVG helper ─────────────────── */
+.scribble-underline {
+  position: relative;
+  display: inline-block;
+}
+
+/* ── Sketch card ──────────────────────────────────────── */
+.sketch-card {
+  border: 2px solid var(--color-ink);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background: var(--color-paper);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.sketch-card:hover {
+  box-shadow: var(--shadow-lift);
+  transform: translate(-2px, -2px);
+}
+
+/* ── Ruled Lines for Contact ──────────────────────────── */
+.ruled-lines {
+  background-image:
+    repeating-linear-gradient(transparent,
+      transparent 27px,
+      var(--color-light-grey) 27px,
+      var(--color-light-grey) 28px);
+  line-height: 28px;
+}
+
+/* ── Scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-paper);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-pencil);
+  border-radius: 3px;
+}
