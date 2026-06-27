@@ -1,96 +1,244 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
-export default function Hero() {
+const lines = [
+    { prompt: '$ whoami', output: 'Abdul Nafih — DevOps Engineer & Full Stack Developer' },
+    { prompt: '$ cat location.txt', output: 'Kannur, Kerala, India 📍' },
+    { prompt: '$ cat company.txt', output: 'Co-Founder @ N3 GlobalTech 🚀' },
+    { prompt: '$ ls stack/', output: 'AWS/  Docker/  GitHub-Actions/  React/  Node.js/  Nginx/' },
+    { prompt: '$ cat metrics.txt', output: '5+ clients  |  3 live products  |  60% faster deploys' },
+    { prompt: '$ cat status.txt', output: '✅ Open to opportunities — hire me!' },
+]
+
+function TerminalLine({ prompt, output, startDelay, speed = 28 }) {
+    const [promptText, setPromptText] = useState('')
+    const [outputText, setOutputText] = useState('')
+    const [showOutput, setShowOutput] = useState(false)
+    const [cursor, setCursor] = useState(true)
+
+    useEffect(() => {
+        const blink = setInterval(() => setCursor(c => !c), 530)
+        return () => clearInterval(blink)
+    }, [])
+
+    useEffect(() => {
+        let i = 0
+        const t0 = setTimeout(() => {
+            const iv = setInterval(() => {
+                if (i < prompt.length) { setPromptText(prompt.slice(0, ++i)) }
+                else { clearInterval(iv); setTimeout(() => setShowOutput(true), 200) }
+            }, speed)
+            return () => clearInterval(iv)
+        }, startDelay)
+        return () => clearTimeout(t0)
+    }, [])
+
+    useEffect(() => {
+        if (!showOutput) return
+        let j = 0
+        const iv = setInterval(() => {
+            if (j < output.length) { setOutputText(output.slice(0, ++j)) }
+            else clearInterval(iv)
+        }, speed - 6)
+        return () => clearInterval(iv)
+    }, [showOutput])
+
+    if (!promptText && !outputText) return null
+
     return (
-        <section className="min-h-screen flex flex-col justify-center items-center px-6 pt-24 pb-16 relative overflow-hidden">
-            {/* Decorative scribble circles */}
-            <motion.div
-                className="absolute top-20 right-10 w-32 h-32 rounded-full border-2 border-[var(--color-light-grey)] opacity-30"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
-                style={{ borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px' }}
-            />
-            <motion.div
-                className="absolute bottom-32 left-8 w-20 h-20 rounded-full border border-[var(--color-light-grey)] opacity-20"
-                animate={{ rotate: -360 }}
-                transition={{ duration: 45, repeat: Infinity, ease: 'linear' }}
-                style={{ borderRadius: '15px 255px 15px 225px / 225px 15px 255px 15px' }}
-            />
-
-            {/* Small doodle marks */}
-            <div className="absolute top-40 left-16 text-[var(--color-light-grey)] text-6xl opacity-20 select-none" style={{ fontFamily: 'var(--font-sketch)' }}>*</div>
-            <div className="absolute bottom-48 right-20 text-[var(--color-light-grey)] text-4xl opacity-15 select-none" style={{ fontFamily: 'var(--font-sketch)' }}>~</div>
-
-            <div className="max-w-4xl mx-auto text-center">
-                {/* Main Title */}
-                <motion.h1
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: 'easeOut' }}
-                    className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl leading-none mb-6 tracking-tight"
-                    style={{ fontFamily: 'var(--font-sketch)' }}
-                >
-                    Creative
-                    <br />
-                    <span className="relative inline-block">
-                        Developer
-                        {/* Hand-drawn underline */}
-                        <motion.svg
-                            viewBox="0 0 300 12"
-                            className="absolute -bottom-2 left-0 w-full"
-                            initial={{ pathLength: 0 }}
-                            animate={{ pathLength: 1 }}
-                            transition={{ duration: 1.2, delay: 0.8, ease: 'easeInOut' }}
-                        >
-                            <motion.path
-                                d="M2 8 Q 40 2, 80 7 Q 120 12, 160 6 Q 200 0, 240 7 Q 270 10, 298 4"
-                                fill="none"
-                                stroke="var(--color-ink)"
-                                strokeWidth="2.5"
-                                strokeLinecap="round"
-                                initial={{ pathLength: 0 }}
-                                animate={{ pathLength: 1 }}
-                                transition={{ duration: 1.2, delay: 0.8, ease: 'easeInOut' }}
-                            />
-                        </motion.svg>
-                    </span>
-                </motion.h1>
-
-                {/* Tagline */}
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.5 }}
-                    className="text-lg sm:text-xl md:text-2xl font-light text-[var(--color-pencil)] max-w-2xl mx-auto mt-8 leading-relaxed"
-                    style={{ fontFamily: 'var(--font-body)' }}
-                >
-                    I think visually, work precisely, and build digital
-                    <br className="hidden sm:block" />
-                    experiences with <strong className="font-semibold text-[var(--color-ink)]">personality</strong>.
-                </motion.p>
-
-                {/* CTA Arrow */}
-                <motion.a
-                    href="#work"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.2 }}
-                    className="inline-block mt-16"
-                >
-                    <motion.div
-                        animate={{ y: [0, 10, 0] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                        className="flex flex-col items-center gap-2 text-[var(--color-pencil)]"
-                    >
-                        <span className="text-xs uppercase tracking-[0.3em]" style={{ fontFamily: 'var(--font-body)' }}>
-                            Scroll
-                        </span>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                            <path d="M12 5v14M5 12l7 7 7-7" />
-                        </svg>
-                    </motion.div>
-                </motion.a>
+        <div style={{ marginBottom: 12 }}>
+            <div style={{ color: '#7dd87a', fontFamily: 'monospace', fontSize: 13 }}>
+                {promptText}
+                {promptText.length < prompt.length && cursor && <span>▋</span>}
             </div>
+            {outputText && (
+                <div style={{ color: '#c9c5be', fontFamily: 'monospace', fontSize: 13, paddingLeft: 14, marginTop: 2 }}>
+                    {outputText}
+                    {outputText.length < output.length && cursor && <span>▋</span>}
+                </div>
+            )}
+        </div>
+    )
+}
+
+export default function Hero() {
+    const [ready, setReady] = useState(false)
+    const [count, setCount] = useState(0)
+
+    useEffect(() => { const t = setTimeout(() => setReady(true), 200); return () => clearTimeout(t) }, [])
+
+    useEffect(() => {
+        if (!ready) return
+        let n = 0
+        const iv = setInterval(() => { n++; setCount(n); if (n >= 10) clearInterval(iv) }, 55)
+        return () => clearInterval(iv)
+    }, [ready])
+
+    const delays = lines.reduce((acc, l, i) => {
+        const prev = acc[i - 1] ?? 400
+        const prevDur = ((lines[i - 1]?.prompt.length ?? 0) + (lines[i - 1]?.output.length ?? 0)) * 28 + 400
+        return [...acc, prev + prevDur]
+    }, [400])
+
+    return (
+        <section
+            id="hero"
+            style={{
+                minHeight: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '100px 24px 64px',
+                opacity: ready ? 1 : 0,
+                transition: 'opacity 0.6s ease',
+            }}
+        >
+            <div
+                className="inner--wide"
+                style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: 56,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                {/* ── LEFT ─────────────────────── */}
+                <div className="animate-fade-up" style={{ flex: '1 1 300px', maxWidth: 400 }}>
+                    {/* Label */}
+                    <p className="section-label" style={{ marginBottom: 18 }}>
+                        DevOps · Cloud · Full Stack
+                    </p>
+
+                    {/* Name in Permanent Marker — only element using hero font */}
+                    <h1
+                        style={{
+                            fontFamily: 'var(--font-sketch)',
+                            fontSize: 'clamp(54px, 9vw, 84px)',
+                            lineHeight: 1.05,
+                            color: 'var(--color-ink)',
+                            marginBottom: 36,
+                            position: 'relative',
+                        }}
+                    >
+                        Abdul<br />
+                        <span style={{ position: 'relative', display: 'inline-block' }}>
+                            Nafih
+                            <svg
+                                viewBox="0 0 230 12"
+                                style={{ position: 'absolute', bottom: -3, left: 0, width: '100%' }}
+                            >
+                                <path
+                                    d="M2 8 Q 45 2, 90 7 Q 135 12, 175 5 Q 205 1, 228 4"
+                                    fill="none"
+                                    stroke="var(--color-ink)"
+                                    strokeWidth="2.5"
+                                    strokeLinecap="round"
+                                    strokeDasharray="240"
+                                    style={{ animation: 'scribble-draw 1.4s ease 0.8s forwards', strokeDashoffset: 240 }}
+                                />
+                            </svg>
+                        </span>
+                    </h1>
+
+                    {/* Stats */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: ready ? 1 : 0 }}
+                        transition={{ delay: 0.4 }}
+                        style={{ display: 'flex', gap: 32, marginBottom: 36, flexWrap: 'wrap' }}
+                    >
+                        {[
+                            { val: '5+', lbl: 'Clients' },
+                            { val: '3', lbl: 'Live Apps' },
+                            { val: `${count}+`, lbl: 'Deploys' },
+                        ].map(s => (
+                            <div key={s.lbl}>
+                                <div className="stat-value">{s.val}</div>
+                                <div className="stat-label">{s.lbl}</div>
+                            </div>
+                        ))}
+                    </motion.div>
+
+                    {/* CTAs */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: ready ? 1 : 0, y: ready ? 0 : 10 }}
+                        transition={{ delay: 0.6 }}
+                        style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}
+                    >
+                        <a href="#projects" className="btn-primary">See My Work</a>
+                        <a href="#contact" className="btn-outline">Hire Me</a>
+                    </motion.div>
+                </div>
+
+                {/* ── RIGHT — Terminal ─────────── */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30, rotate: 1 }}
+                    animate={{ opacity: ready ? 1 : 0, y: ready ? 0 : 30, rotate: ready ? -0.5 : 1 }}
+                    transition={{ duration: 0.8, delay: 0.25 }}
+                    style={{ flex: '1 1 420px', minWidth: 420, maxWidth: 560, position: 'relative' }}
+                >
+                    {/* Tape strip on terminal */}
+                    <div style={{
+                        position: 'absolute', top: -10, left: 28,
+                        width: 60, height: 22,
+                        background: 'var(--color-tape)',
+                        border: '1px solid rgba(0,0,0,0.07)',
+                        transform: 'rotate(-1.5deg)',
+                        zIndex: 10,
+                    }} />
+
+                    <div style={{
+                        border: '2px solid var(--color-ink)',
+                        borderRadius: '8px',
+                        overflow: 'hidden',
+                        background: '#1a1a1a',
+                        boxShadow: '6px 6px 0px var(--color-ink)',
+                    }}>
+                        {/* Title bar */}
+                        <div style={{
+                            display: 'flex', alignItems: 'center', gap: 7,
+                            padding: '12px 16px',
+                            background: '#242424',
+                            borderBottom: '1px solid #333',
+                        }}>
+                            <span style={{ width: 11, height: 11, borderRadius: '50%', background: '#ff5f57' }} />
+                            <span style={{ width: 11, height: 11, borderRadius: '50%', background: '#febc2e' }} />
+                            <span style={{ width: 11, height: 11, borderRadius: '50%', background: '#28c840' }} />
+                            <span style={{ marginLeft: 'auto', fontFamily: 'monospace', fontSize: 11, color: '#666' }}>
+                                nafih@portfolio ~ bash
+                            </span>
+                        </div>
+                        {/* Body */}
+                        <div style={{ padding: '20px 20px 28px', minHeight: 290 }}>
+                            {ready && lines.map((line, i) => (
+                                <TerminalLine key={i} prompt={line.prompt} output={line.output} startDelay={delays[i]} />
+                            ))}
+                        </div>
+                    </div>
+                </motion.div>
+            </div>
+
+            {/* Scroll hint */}
+            <motion.a
+                href="#about"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: ready ? 0.6 : 0 }}
+                transition={{ delay: 2 }}
+                style={{
+                    position: 'absolute', bottom: 36, left: '50%', transform: 'translateX(-50%)',
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6,
+                    textDecoration: 'none', color: 'var(--color-mid-grey)',
+                }}
+            >
+                <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity }}>
+                    <span style={{ fontFamily: 'var(--font-body)', fontSize: 10, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+                        Scroll
+                    </span>
+                    <div style={{ textAlign: 'center', marginTop: 4 }}>↓</div>
+                </motion.div>
+            </motion.a>
         </section>
     )
 }
