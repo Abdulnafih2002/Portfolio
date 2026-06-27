@@ -104,7 +104,7 @@ export default function Hero() {
                 }}
             >
                 {/* ── LEFT ─────────────────────── */}
-                <div className="animate-fade-up" style={{ flex: '1 1 300px', maxWidth: 400 }}>
+                <div className="animate-fade-up flex flex-col items-center lg:items-start text-center lg:text-left w-full lg:w-auto" style={{ maxWidth: 440 }}>
                     {/* Label */}
                     <p className="section-label" style={{ marginBottom: 18 }}>
                         DevOps · Cloud · Full Stack
@@ -114,7 +114,7 @@ export default function Hero() {
                     <h1
                         style={{
                             fontFamily: 'var(--font-sketch)',
-                            fontSize: 'clamp(54px, 9vw, 84px)',
+                            fontSize: 'clamp(44px, 8vw, 80px)',
                             lineHeight: 1.05,
                             color: 'var(--color-ink)',
                             marginBottom: 36,
@@ -146,7 +146,7 @@ export default function Hero() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: ready ? 1 : 0 }}
                         transition={{ delay: 0.4 }}
-                        style={{ display: 'flex', gap: 32, marginBottom: 36, flexWrap: 'wrap' }}
+                        className="flex justify-center lg:justify-start gap-8 mb-9 flex-wrap w-full"
                     >
                         {[
                             { val: '5+', lbl: 'Clients' },
@@ -165,7 +165,7 @@ export default function Hero() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: ready ? 1 : 0, y: ready ? 0 : 10 }}
                         transition={{ delay: 0.6 }}
-                        style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}
+                        className="flex justify-center lg:justify-start gap-3.5 flex-wrap w-full"
                     >
                         <a href="#projects" className="btn-primary">See My Work</a>
                         <a href="#contact" className="btn-outline">Hire Me</a>
