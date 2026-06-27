@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 const infoCards = [
@@ -10,6 +10,13 @@ const infoCards = [
 
 export default function About() {
     const [imgError, setImgError] = useState(false)
+    const [isMobile, setIsMobile] = useState(false)
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 768)
+        check()
+        window.addEventListener('resize', check)
+        return () => window.removeEventListener('resize', check)
+    }, [])
     return (
         <section id="about" style={{ padding: '80px 0' }}>
             <div className="inner">
@@ -23,8 +30,8 @@ export default function About() {
                 <div className="flex flex-col items-center lg:flex-row lg:items-start lg:justify-between w-full gap-11">
                     {/* ── LEFT — avatar + bio ───────── */}
                     <motion.div
-                        initial={{ opacity: 0, rotate: -4 }}
-                        whileInView={{ opacity: 1, rotate: -1.5 }}
+                        initial={{ opacity: 0, rotate: isMobile ? 0 : -4 }}
+                        whileInView={{ opacity: 1, rotate: isMobile ? 0 : -1.5 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
                         style={{ flex: '0 0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18 }}
@@ -131,8 +138,8 @@ export default function About() {
                         {infoCards.map((card, i) => (
                             <motion.div
                                 key={card.label}
-                                initial={{ opacity: 0, y: 20, rotate: card.rotation * -1 }}
-                                whileInView={{ opacity: 1, y: 0, rotate: card.rotation }}
+                                initial={{ opacity: 0, y: 20, rotate: isMobile ? 0 : card.rotation * -1 }}
+                                whileInView={{ opacity: 1, y: 0, rotate: isMobile ? 0 : card.rotation }}
                                 whileHover={{ y: -4, boxShadow: '6px 6px 0px var(--color-ink)', rotate: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.4, delay: i * 0.08 }}

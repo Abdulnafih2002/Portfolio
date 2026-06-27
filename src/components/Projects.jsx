@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 const featuredProjects = [
@@ -62,11 +63,11 @@ const otherProjects = [
     },
 ]
 
-function FeaturedCard({ project, index }) {
+function FeaturedCard({ project, index, isMobile }) {
     return (
         <motion.div
-            initial={{ opacity: 0, y: 40, rotate: project.rotation * -1 }}
-            whileInView={{ opacity: 1, y: 0, rotate: project.rotation }}
+            initial={{ opacity: 0, y: 40, rotate: isMobile ? 0 : project.rotation * -1 }}
+            whileInView={{ opacity: 1, y: 0, rotate: isMobile ? 0 : project.rotation }}
             whileHover={{ y: -4, rotate: 0, boxShadow: '8px 8px 0px var(--color-ink)' }}
             viewport={{ once: true }}
             transition={{ duration: 0.55, delay: index * 0.1 }}
@@ -190,6 +191,13 @@ function FeaturedCard({ project, index }) {
 }
 
 export default function Projects() {
+    const [isMobile, setIsMobile] = useState(false)
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 768)
+        check()
+        window.addEventListener('resize', check)
+        return () => window.removeEventListener('resize', check)
+    }, [])
     return (
         <section id="projects" style={{ padding: '80px 0' }}>
             <div className="inner">
@@ -208,7 +216,7 @@ export default function Projects() {
                 {/* 80px gap between featured cards */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 80, marginBottom: 64, position: 'relative' }}>
                     {featuredProjects.map((project, i) => (
-                        <FeaturedCard key={project.id} project={project} index={i} />
+                        <FeaturedCard key={project.id} project={project} index={i} isMobile={isMobile} />
                     ))}
                 </div>
 

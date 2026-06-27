@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 const experiences = [
@@ -51,6 +52,13 @@ const educations = [
 ]
 
 export default function Experience() {
+    const [isMobile, setIsMobile] = useState(false)
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 768)
+        check()
+        window.addEventListener('resize', check)
+        return () => window.removeEventListener('resize', check)
+    }, [])
     return (
         <section id="experience" style={{ padding: '80px 0' }}>
             <div className="inner">
@@ -107,9 +115,11 @@ export default function Experience() {
                                 whileHover={{ y: -3, boxShadow: '6px 6px 0px var(--color-ink)', rotate: 0 }}
                                 className="sketch-card"
                                 style={{
-                                    marginLeft: 8, padding: 24,
+                                    marginLeft: isMobile ? 4 : 8,
+                                    marginRight: isMobile ? 8 : 0,
+                                    padding: isMobile ? '20px 14px' : 24,
                                     background: 'var(--color-paper)',
-                                    rotate: exp.rotation,
+                                    rotate: isMobile ? 0 : exp.rotation,
                                     borderLeft: exp.current ? '4px solid var(--color-accent)' : undefined,
                                 }}
                             >

@@ -91,6 +91,7 @@ export default function Hero() {
                 padding: '100px 24px 64px',
                 opacity: ready ? 1 : 0,
                 transition: 'opacity 0.6s ease',
+                position: 'relative',
             }}
         >
             <div
@@ -227,9 +228,10 @@ export default function Hero() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: ready ? 0.6 : 0 }}
                 transition={{ delay: 2 }}
+                className="hidden lg:flex"
                 style={{
                     position: 'absolute', bottom: 36, left: '50%', transform: 'translateX(-50%)',
-                    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6,
+                    flexDirection: 'column', alignItems: 'center', gap: 6,
                     textDecoration: 'none', color: 'var(--color-mid-grey)',
                 }}
             >
