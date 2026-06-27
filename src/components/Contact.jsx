@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const quickActions = [
@@ -11,6 +11,13 @@ const quickActions = [
 export default function Contact() {
     const [form, setForm]    = useState({ name: '', email: '', message: '' })
     const [submitted, setSub] = useState(false)
+    const [isMobile, setIsMobile] = useState(false)
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 768)
+        check()
+        window.addEventListener('resize', check)
+        return () => window.removeEventListener('resize', check)
+    }, [])
 
     const onChange = e => setForm(p => ({ ...p, [e.target.name]: e.target.value }))
     const onSubmit = e => {
@@ -27,7 +34,7 @@ export default function Contact() {
         width: '100%',
         background: 'var(--color-paper-dark)',
         border: '2px solid var(--color-ink)',
-        borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px',
+        borderRadius: isMobile ? '12px 8px 10px 12px' : '255px 15px 225px 15px / 15px 225px 15px 255px',
         padding: '10px 16px',
         fontFamily: 'var(--font-body)',
         fontSize: '14px',

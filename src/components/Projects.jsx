@@ -127,7 +127,7 @@ function FeaturedCard({ project, index, isMobile }) {
                             display: 'flex', flexDirection: 'column', alignItems: 'center',
                             gap: 4, padding: '12px 18px',
                             border: '2px solid var(--color-ink)',
-                            borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px',
+                            borderRadius: isMobile ? '12px 8px 10px 12px' : '255px 15px 225px 15px / 15px 225px 15px 255px',
                             background: 'var(--color-ink)', color: 'var(--color-paper)',
                             textDecoration: 'none', minWidth: 128, flexShrink: 0,
                             boxShadow: '4px 4px 0px var(--color-pencil)',

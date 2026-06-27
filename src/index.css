@@ -43,7 +43,12 @@
 *, *::before, *::after {
   margin: 0; padding: 0; box-sizing: border-box;
 }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+}
 
 body {
   font-family:  var(--font-body);
@@ -53,6 +58,7 @@ body {
   background:   var(--color-paper);
   overflow-x:   hidden;
   width:        100%;
+  max-width:    100%;
 }
 
 #root {
@@ -130,20 +136,33 @@ section {
 /* ── Sketch border (wobbly hand-drawn) ──────────────────── */
 .sketch-border {
   border: 2px solid var(--color-ink);
-  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  border-radius: 14px 10px 12px 14px;
 }
 .sketch-border-thin {
   border: 1.5px solid var(--color-pencil);
-  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  border-radius: 14px 10px 12px 14px;
+}
+@media (min-width: 768px) {
+  .sketch-border {
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  }
+  .sketch-border-thin {
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  }
 }
 
 /* ── Sketch card ─────────────────────────────────────────── */
 .sketch-card {
   border: 2px solid var(--color-ink);
-  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  border-radius: 16px 12px 14px 16px;
   background: var(--color-paper);
   box-shadow: 4px 4px 0px var(--color-ink);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+@media (min-width: 768px) {
+  .sketch-card {
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  }
 }
 .sketch-card:hover {
   box-shadow: var(--shadow-lift);
@@ -155,13 +174,18 @@ section {
   display:       inline-block;
   padding:       4px 12px;
   border:        1.5px solid var(--color-ink);
-  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  border-radius: 12px 8px 10px 12px;
   font-family:   var(--font-body);
   font-size:     11px;
   font-weight:    500;
   color:         var(--color-pencil);
   transition:    all 0.18s ease;
   cursor:        default;
+}
+@media (min-width: 768px) {
+  .doodle-tag {
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  }
 }
 
 .doodle-tag:hover {
@@ -233,7 +257,7 @@ section {
   align-items:    center;
   gap:            8px;
   padding:        11px 26px;
-  border-radius:  255px 15px 225px 15px / 15px 225px 15px 255px;
+  border-radius:  12px 8px 10px 12px;
   font-family:    var(--font-body);
   font-size:      13px;
   font-weight:    600;
@@ -259,7 +283,7 @@ section {
   align-items:    center;
   gap:            8px;
   padding:        11px 26px;
-  border-radius:  255px 15px 225px 15px / 15px 225px 15px 255px;
+  border-radius:  12px 8px 10px 12px;
   font-family:    var(--font-body);
   font-size:      13px;
   font-weight:    600;
@@ -272,6 +296,14 @@ section {
   cursor:         pointer;
   text-decoration: none;
   transition:     background 0.2s, color 0.2s, transform 0.15s, box-shadow 0.15s;
+}
+@media (min-width: 768px) {
+  .btn-primary {
+    border-radius:  255px 15px 225px 15px / 15px 225px 15px 255px;
+  }
+  .btn-outline {
+    border-radius:  255px 15px 225px 15px / 15px 225px 15px 255px;
+  }
 }
 .btn-outline:hover {
   background:  var(--color-ink);
