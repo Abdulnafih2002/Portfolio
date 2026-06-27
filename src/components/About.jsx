@@ -20,7 +20,7 @@ export default function About() {
                     <div style={{ width: 60, height: 2, background: 'var(--color-ink)', marginTop: 8 }} />
                 </div>
 
-                <div style={{ display: 'flex', gap: 44, alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                <div className="flex flex-col items-center lg:flex-row lg:items-start lg:justify-between w-full gap-11">
                     {/* ── LEFT — avatar + bio ───────── */}
                     <motion.div
                         initial={{ opacity: 0, rotate: -4 }}

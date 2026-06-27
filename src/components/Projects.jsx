@@ -88,9 +88,9 @@ function FeaturedCard({ project, index }) {
 
             <div style={{ padding: 28, position: 'relative' }}>
                 {/* Header */}
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, marginBottom: 20, flexWrap: 'wrap' }}>
-                    <div style={{ flex: 1 }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8, flexWrap: 'wrap' }}>
+                <div className="flex flex-col items-center text-center md:flex-row md:items-start md:text-left md:justify-between w-full gap-5 mb-5">
+                    <div className="flex flex-col items-center md:items-start w-full md:flex-1">
+                        <div className="flex justify-center md:justify-start items-center gap-2.5 mb-2.5 flex-wrap">
                             <span style={{
                                 fontFamily: 'var(--font-body)', fontSize: 10, fontWeight: 700,
                                 letterSpacing: '0.1em', textTransform: 'uppercase',
@@ -107,10 +107,10 @@ function FeaturedCard({ project, index }) {
                                 Live
                             </span>
                         </div>
-                        <h3 style={{ fontFamily: 'var(--font-body)', fontSize: '1.25rem', fontWeight: 600, color: 'var(--color-ink)', marginBottom: 4 }}>
+                        <h3 style={{ fontFamily: 'var(--font-body)', fontSize: '1.25rem', fontWeight: 600, color: 'var(--color-ink)', marginBottom: 4 }} className="text-center md:text-left">
                             {project.title}
                         </h3>
-                        <p style={{ fontFamily: 'var(--font-body)', fontSize: 13, color: 'var(--color-mid-grey)' }}>
+                        <p style={{ fontFamily: 'var(--font-body)', fontSize: 13, color: 'var(--color-mid-grey)' }} className="text-center md:text-left">
                             {project.tagline}
                         </p>
                     </div>
@@ -201,10 +201,7 @@ export default function Projects() {
                 </div>
 
                 {/* Featured label */}
-                <p style={{
-                    fontFamily: 'var(--font-body)', fontSize: 13, fontWeight: 700,
-                    color: 'var(--color-accent)', marginBottom: 24, letterSpacing: '0.02em',
-                }}>
+                <p className="text-center lg:text-left font-bold text-sm text-[var(--color-accent)] tracking-wide mb-6">
                     ★ Featured — Live Products
                 </p>
 
@@ -216,7 +213,7 @@ export default function Projects() {
                 </div>
 
                 {/* Other projects */}
-                <p style={{ fontFamily: 'var(--font-body)', fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-mid-grey)', marginBottom: 20 }}>
+                <p className="text-center lg:text-left font-bold text-xs text-[var(--color-mid-grey)] tracking-wider uppercase mb-5">
                     Other Work
                 </p>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 24 }}>

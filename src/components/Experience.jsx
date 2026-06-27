@@ -151,7 +151,7 @@ export default function Experience() {
 
                 {/* Education */}
                 <div style={{ marginTop: 64 }}>
-                    <h3 style={{ fontFamily: 'var(--font-body)', fontSize: 24, fontWeight: 600, color: 'var(--color-ink)', marginBottom: 24 }}>Education</h3>
+                    <h3 className="text-center lg:text-left font-bold text-2xl text-[var(--color-ink)] mb-6">Education</h3>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 20 }}>
                         {educations.map((edu, i) => (
                             <motion.div

@@ -51,8 +51,8 @@ export default function Contact() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
-                    className="sketch-card"
-                    style={{ display: 'flex', alignItems: 'center', gap: 20, marginBottom: 28, padding: 24, flexWrap: 'wrap', background: 'var(--color-paper)' }}
+                    className="sketch-card flex flex-col sm:flex-row items-center text-center sm:text-left gap-5"
+                    style={{ marginBottom: 28, padding: 24, background: 'var(--color-paper)', width: '100%' }}
                 >
                     <div style={{ position: 'relative', flexShrink: 0 }}>
                         <motion.div
@@ -156,9 +156,8 @@ export default function Contact() {
                                 exit={{ opacity: 0 }}
                                 whileHover={{ x: -2, y: -2 }}
                                 whileTap={{ scale: 0.97 }}
-                                className="btn-primary"
+                                className="btn-primary self-center sm:self-start"
                                 style={{
-                                    alignSelf: 'flex-start',
                                     background: submitted ? 'var(--color-accent)' : 'var(--color-ink)',
                                     borderColor: submitted ? 'var(--color-accent)' : 'var(--color-ink)',
                                 }}

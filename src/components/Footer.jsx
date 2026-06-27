@@ -5,9 +5,9 @@ export default function Footer() {
 
     return (
         <footer style={{ borderTop: '1px solid var(--color-border)', padding: '32px 24px', width: '100%' }}>
-            <div style={{ maxWidth: 900, margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
+            <div className="flex flex-col md:flex-row items-center text-center md:text-left justify-between gap-6 w-full max-w-[900px] mx-auto">
                 {/* Logo */}
-                <div>
+                <div className="flex flex-col items-center md:items-start">
                     <span style={{ fontFamily: 'var(--font-ui)', fontSize: 17, fontWeight: 700, color: 'var(--color-ink)' }}>
                         nafih.
                     </span>
@@ -17,7 +17,7 @@ export default function Footer() {
                 </div>
 
                 {/* Links */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+                <div className="flex justify-center items-center gap-5">
                     {[
                         { label: 'GitHub',   href: 'https://github.com/Abdulnafih2002' },
                         { label: 'LinkedIn', href: 'https://www.linkedin.com/in/abdulnafih01' },
@@ -37,7 +37,7 @@ export default function Footer() {
                 </div>
 
                 {/* Copyright */}
-                <p style={{ fontFamily: 'var(--font-ui)', fontSize: 12, color: 'var(--color-muted)' }}>
+                <p style={{ fontFamily: 'var(--font-ui)', fontSize: 12, color: 'var(--color-muted)' }} className="text-center md:text-right">
                     © {year} Abdul Nafih
                 </p>
             </div>
