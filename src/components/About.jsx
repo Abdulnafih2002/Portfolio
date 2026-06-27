@@ -125,12 +125,9 @@ export default function About() {
                     </motion.div>
 
                     {/* ── RIGHT — 2×2 info cards ─────── */}
-                    <div style={{
-                        flex: '1 1 300px',
-                        display: 'grid',
-                        gridTemplateColumns: '1fr 1fr',
-                        gap: 20,
-                    }}>
+                    <div
+                        className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full lg:flex-1"
+                    >
                         {infoCards.map((card, i) => (
                             <motion.div
                                 key={card.label}

@@ -177,7 +177,8 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 30, rotate: 1 }}
                     animate={{ opacity: ready ? 1 : 0, y: ready ? 0 : 30, rotate: ready ? -0.5 : 1 }}
                     transition={{ duration: 0.8, delay: 0.25 }}
-                    style={{ flex: '1 1 420px', minWidth: 420, maxWidth: 560, position: 'relative' }}
+                    className="w-full max-w-lg lg:flex-1"
+                    style={{ position: 'relative' }}
                 >
                     {/* Tape strip on terminal */}
                     <div style={{

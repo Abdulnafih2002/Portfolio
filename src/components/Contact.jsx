@@ -129,7 +129,7 @@ export default function Contact() {
                     </p>
 
                     <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16, position: 'relative', zIndex: 1 }}>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label style={{ fontFamily: 'var(--font-body)', fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-mid-grey)', display: 'block', marginBottom: 6 }}>Name</label>
                                 <input type="text" name="name" value={form.name} onChange={onChange} required
